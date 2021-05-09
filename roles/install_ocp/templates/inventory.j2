@@ -36,11 +36,12 @@ pg_sslmode='{{ tower_pg_sslmode }}'  # set to 'verify-full' for client-side enfo
 
 # Deploy into Openshift
 # =====================
-
+{% if not tower_kubernetes %}
 openshift_host='{{ openshift_host }}'
 openshift_user='{{ openshift_user }}'
 openshift_project='{{ openshift_project }}'
 openshift_skip_tls_verify='{{ openshift_skip_tls_verify }}'
+{% endif %}
 
 # Skip this section if you BYO database. This is only used when you want the
 # installer to deploy a containerized Postgres deployment inside of your
@@ -50,4 +51,17 @@ openshift_skip_tls_verify='{{ openshift_skip_tls_verify }}'
 # Name of a PVC you want to provision (If not using an external db)
 {% if openshift_pg_pvc_name is defined %}
 openshift_pg_pvc_name='{{ openshift_pg_pvc_name }}'
+{% endif %}
+
+# Deploy into Vanilla Kubernetes
+# ==============================
+
+{% if kubernetes_context is defined %}
+kubernetes_context='{{ kubernetes_context }}'
+{% endif %}
+{% if kubernetes_namespace is defined %}
+kubernetes_namespace='{{ kubernetes_namespace | default('default') }}'
+{% endif %}
+{% if kubernetes_image_pull_secrets is defined %}
+kubernetes_image_pull_secrets='{{ kubernetes_image_pull_secrets }}'
 {% endif %}

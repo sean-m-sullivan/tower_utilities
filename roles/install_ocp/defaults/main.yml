@@ -47,4 +47,20 @@ openshift_user: kubeadmin
 # persistant volume for pg database details
 openshift_pg_pvc_name: postgresql
 pvc_claim_size: 10Gi
+
+############################################################
+#               Kubernetes vars.                 #
+############################################################
+
+# Deploy into Vanilla Kubernetes
+# ==============================
+# Tower can be deployed to a Kubernetes instance for testing purposes.
+# A context should be set this is the equivalant of being logged in.
+# A pull secret for registry.redhat.io is likely needed  if not already setup.
+# Tower Install version Openshift/Kubernetes
+tower_kubernetes: false
+
+kubernetes_context: minikube
+kubernetes_namespace: default
+kubernetes_image_pull_secrets: tower-mini-pull-secret
 ...
