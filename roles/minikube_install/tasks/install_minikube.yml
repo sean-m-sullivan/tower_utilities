@@ -1,0 +1,28 @@
+---
+# Configure Tower on OCP
+- block:
+
+    # Create Inventory
+    - name: "[Tower] Populate Tower Setup Inventory from Template"
+      template:
+        src: inventory.j2
+        dest: "{{ tower_setup_dir }}/inventory"
+
+    # Run the Setup
+    - name: "[Tower] Run the Ansible Tower Setup Program"
+      command: |
+            ./setup_openshift.sh {% if tower_verbose_install %}-- -vvv{% endif %}
+      args:
+        chdir: "{{ tower_setup_dir }}"
+      async: 10000
+      poll: 20
+      changed_when: false   # these will always run and will always report “changed” otherwise
+
+    # Get route for Ansibe Tower
+    - name: "[Openshift] Get route for Ansible Tower"
+      k8s_info:
+        kind: Route
+        namespace: '{{ openshift_project }}'
+        api_key: "{{ openshift_token }}"
+      register: route_details
+...
