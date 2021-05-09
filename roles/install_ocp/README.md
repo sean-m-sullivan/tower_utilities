@@ -85,6 +85,16 @@ openshift_pg_pvc_name: postgresql
 # Openshift Persistant Volume Claim Size
 pvc_claim_size: 10Gi
 
+
+# Deploy into Vanilla Kubernetes
+# ==============================
+# Tower can be deployed to a Kubernetes instance for testing purposes.
+# A context should be set. 
+# A pull secret for registry.redhat.io is likely needed  if not already setup.
+
+kubernetes_context: minikube
+kubernetes_namespace: default
+kubernetes_image_pull_secrets: tower-mini-pull-secret
 ```
 
 ## Example Playbook

@@ -51,3 +51,16 @@ openshift_skip_tls_verify='{{ openshift_skip_tls_verify }}'
 {% if openshift_pg_pvc_name is defined %}
 openshift_pg_pvc_name='{{ openshift_pg_pvc_name }}'
 {% endif %}
+
+# Deploy into Vanilla Kubernetes
+# ==============================
+
+{% if kubernetes_context is defined %}
+kubernetes_context='{{ kubernetes_context }}'
+{% endif %}
+{% if kubernetes_namespace is defined %}
+kubernetes_namespace='{{ kubernetes_namespace | default('default') }}'
+{% endif %}
+{% if kubernetes_image_pull_secrets is defined %}
+kubernetes_image_pull_secrets='{{ kubernetes_image_pull_secrets }}'
+{% endif %}
