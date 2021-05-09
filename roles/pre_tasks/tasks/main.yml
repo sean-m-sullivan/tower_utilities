@@ -9,7 +9,7 @@
   changed_when: false
 
 - name: "Install absolutely necessary packages"
-  yum:
+  package:
     name: "{{ package_item }}"
     state: present
   loop: "{{ __towerutils_check_packages }}"
